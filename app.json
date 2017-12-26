@@ -1,0 +1,96 @@
+{
+    "id": "com.zont",
+    "name": {
+        "en": "Zont"
+    },
+    "version": "1.0.0",
+    "compatibility": "1.x",
+    "author": {
+        "name": "Sprut",
+        "email": "sprut666666@gmail.com",
+        "website": "https://www.youtube.com/sprut666666"
+    },
+    "description": {
+        "en": "Zont for Homey",
+        "nl": "Zont voor Homey"
+    },
+    "images": {
+        "large": "./assets/images/large.jpg",
+        "small": "./assets/images/small.jpg"
+    },
+    "category": "appliances",
+    "drivers": [
+        {
+            "id": "doorbell",
+            "name": {
+                "en": "Video Doorbell",
+                "nl": "Video Doorbell"
+            },
+            "images": {
+                "large": "./drivers/doorbell/assets/images/large.jpg",
+                "small": "./drivers/doorbell/assets/images/small.jpg"
+            },
+            "class": "sensor",
+            "capabilities": [ "alarm_generic", "alarm_motion", "measure_battery" ],
+            "pair": [
+                {
+                    "id": "start"
+                },
+                {
+                    "id": "list_devices",
+                    "template": "list_devices",
+                    "navigation": {
+                        "next": "add_devices"
+                    }
+                },
+                {
+                    "id": "add_devices",
+                    "template": "add_devices"
+                }
+            ]
+        }
+    ],
+    "flow": {
+        "triggers": [
+            {
+                "id": "doorbell_firmware_changed",
+                "title": {
+                    "en": "Firmware changed",
+                    "nl": "Firmware is veranderd"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=doorbell"
+                    }
+                ],
+                "tokens": [
+                    {
+                        "name": "old_firmware",
+                        "type": "string",
+                        "title": {
+                            "en": "old version",
+                            "nl": "oude versie"
+                        },
+                        "example": {
+                            "en": "1.0.0",
+                            "nl": "1.0.0"
+                        }
+                    }, {
+                        "name": "new_firmware",
+                        "type": "string",
+                        "title": {
+                            "en": "new version",
+                            "nl": "nieuwe versie"
+                        },
+                        "example": {
+                            "en": "2.0.0",
+                            "nl": "2.0.0"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
