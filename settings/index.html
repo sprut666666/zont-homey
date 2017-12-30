@@ -1,96 +1,85 @@
 <!doctype html>
 <html>
-    <head>
-    </head>
-    <body>
+  <head>
+    <script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+  </head>
+  <body>
 
     <h1 data-i18n="settings.title"></h1>
     <p data-i18n="settings.intro"></p>
 
     <fieldset>
-        <legend data-i18n="settings.auth.header"></legend>
+      <legend data-i18n="settings.auth.header"></legend>
 
-        <div id="settings-auth">
-            <p id="error" style='color: red;'></p>
+      <div id="settings-auth">
+        <p id="error" style='color: red;'></p>
 
-            <div class="field row">
-                <label class="form-label" for="settings-auth-user" data-i18n="settings.auth.user"></label>
-                <input class="form-input" id="settings-auth-user" data-i18n-placeholder="" type="text" value=""/>
-            </div>
-
-            <div class="field row">
-                <label class="form-label" for="settings-auth-pass" data-i18n="settings.auth.pass"></label>
-                <input class="form-input" id="settings-auth-pass" data-i18n-placeholder="" type="password" value=""/>
-            </div>
-
-            <button id="settings-auth-authenticate" data-i18n="settings.auth.authenticate" onclick="onAuth()"></button>
+        <div class="field row">
+          <label class="form-label" for="settings-auth-user" data-i18n="settings.auth.username"></label>
+          <input class="form-input" id="settings-auth-user" data-i18n-placeholder="" type="text" value=""/>
         </div>
 
-        <div id="settings-auth-revoke">
-            <button id="settings-auth-revoke" data-i18n="settings.auth.revoke" onclick="onRevokeAuth()"></button>
+        <div class="field row">
+          <label class="form-label" for="settings-auth-pass" data-i18n="settings.auth.password"></label>
+          <input class="form-input" id="settings-auth-pass" data-i18n-placeholder="" type="password" value=""/>
         </div>
+
+        <div class="field row">
+          <label class="form-label" for="settings-auth-email" data-i18n="settings.auth.email"></label>
+          <input class="form-input" id="settings-auth-email" data-i18n-placeholder="" type="email" value=""/>
+        </div>
+
+        <button id="settings-auth-authenticate-button" data-i18n="settings.auth.authenticate"></button>
+      </div>
+
+      <div id="settings-auth-revoke">
+        <button id="settings-auth-revoke-button" data-i18n="settings.auth.revoke"></button>
+      </div>
     </fieldset>
 
     <script type="text/javascript">
-        showAuth();
+      function onHomeyReady() {
+        Homey.get('auth', (err, data) => {
+          if (err || !data) {
+            $('#settings-auth').show();
+            $('#settings-auth-revoke').hide();
+          } else {
+            $('#settings-auth').hide();
+            $('#settings-auth-revoke').show();
+          }
+          Homey.ready();
+        })
+      }
 
-        function onAuth() {
-            var auth = {};
-
-            auth.user = document.getElementById('settings-auth-user').value;
-            auth.pass = document.getElementById('settings-auth-pass').value;
-
-            Homey.set('ringCredentials', auth);
+      $('#settings-auth-authenticate-button').on('click', () => {
+        const data = {
+          username: $("#settings-auth-user").val(),
+          password: $("#settings-auth-pass").val(),
+          email: $("#settings-auth-email").val(),
+        };
+        if (!data.username || !data.password || !data.email) {
+          return;
         }
+        $('#settings-auth-authenticate-button').append(
+          '<span id="icon-auth" class="fa fa-cog fa-spin" style="margin-left:5px"></span>'
+        );
+        Homey.set('auth', data, () => {
+          $('#icon-auth').remove();
+          $('#settings-auth').hide();
+          $('#settings-auth-revoke').show();
+        });
+      });
 
-        function onRevokeAuth() {
-            Homey.unset('ringAccesstoken');
-            showAuth();
-        }
-
-        function showAuth() {
-            var revoke = document.getElementById('settings-auth-revoke');
-            revoke.style.display = 'none';
-
-            var auth = document.getElementById('settings-auth');
-            auth.style.display = 'block';
-        }
-
-        function showRevoke() {
-            var auth = document.getElementById('settings-auth');
-            auth.style.display = 'none';
-
-            var revoke = document.getElementById('settings-auth-revoke');
-            revoke.style.display = 'block';
-        }
-
-        function onHomeyReady() {
-            Homey.on('com.ring.status', function (data) {
-                if (data.state !== 'authenticated') {
-                    showAuth();
-                    document.getElementById('error').innerHTML = 'Error: ' + data.state.message;
-                } else {
-                    document.getElementById('error').innerHTML = '';
-                    showRevoke();
-                }
-            });
-
-            Homey.get('ringAccesstoken', function (err, data) {
-                if (data) {
-                    showRevoke();
-                }
-
-                Homey.get('ringCredentials', function (err, data) {
-                    if (err || data == undefined) {
-                        console.log(err);
-                    } else {
-                        document.getElementById('settings-auth-user').value = data.user;
-                    }
-                });
-
-                Homey.ready();
-            });
-        }
+      $('#settings-auth-revoke-button').on('click', () => {
+        $('#settings-auth-revoke-button').append(
+          '<span id="icon-revoke" class="fa fa-cog fa-spin" style="margin-left:5px"></span>'
+        );
+        Homey.unset('auth', () => {
+          $('#icon-revoke').remove();
+          $('#settings-auth').show();
+          $('#settings-auth-revoke').hide();
+        });
+      });
     </script>
-    </body>
+  </body>
 </html>

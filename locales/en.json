@@ -1,15 +1,16 @@
 {
     "pair": {
-        "authorization": "Authenticate with Ring",
-        "authorization_explanation": "Please go to settings and give Homey access to your Ring devices."
+        "authorization": "Authenticate with Zont",
+        "authorization_explanation": "Please go to settings and give Homey access to your Zont devices."
     },
     "settings": {
-        "title": "Ring Settings",
-        "intro": "Before Homey can add Ring products we need authentication.",
+        "title": "Zont Settings",
+        "intro": "Before Homey can add Zont products we need authentication.",
         "auth": {
-            "header": "Ring Authentication Credentials",
-            "user": "Email",
-            "pass": "Password",
+            "header": "Zont Authentication Credentials",
+            "username": "Username",
+            "password": "Password",
+            "email": "Email",
             "authenticate": "Authenticate",
             "revoke": "Revoke Authentication"
         }

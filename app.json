@@ -10,6 +10,15 @@
         "email": "sprut666666@gmail.com",
         "website": "https://www.youtube.com/sprut666666"
     },
+    "contributors": {
+        "developers": [
+            {
+                "name": "Anton Petrov",
+                "email": "petrov.aap@gmail.com",
+                "website": "https://github.com/itsmepetrov"
+            }
+        ]
+    },
     "description": {
         "en": "Zont for Homey",
         "nl": "Zont voor Homey"
