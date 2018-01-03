@@ -1,5 +1,6 @@
 {
     "id": "com.zont",
+    "sdk": 2,
     "name": {
         "en": "Zont"
     },
@@ -24,23 +25,107 @@
         "nl": "Zont voor Homey"
     },
     "images": {
-        "large": "./assets/images/large.jpg",
-        "small": "./assets/images/small.jpg"
+        "large": "./assets/images/large.png",
+        "small": "./assets/images/small.png"
     },
     "category": "appliances",
     "drivers": [
         {
-            "id": "doorbell",
+            "id": "car_alarm",
             "name": {
-                "en": "Video Doorbell",
-                "nl": "Video Doorbell"
+                "en": "Car Alarm",
+                "nl": "Car Alarm"
             },
             "images": {
-                "large": "./drivers/doorbell/assets/images/large.jpg",
-                "small": "./drivers/doorbell/assets/images/small.jpg"
+                "large": "./drivers/car_alarm/assets/images/large.png",
+                "small": "./drivers/car_alarm/assets/images/small.png"
             },
             "class": "sensor",
-            "capabilities": [ "alarm_generic", "alarm_motion", "measure_battery" ],
+            "capabilities": [
+                "onoff.auto_ignition",
+                "locked.guard_state",
+                "onoff.siren",
+                "onoff.engine_block",
+                "alarm_motion.ignition_state",
+                "alarm_motion.engine_state",
+                "alarm_motion.shock"
+            ],
+            "capabilitiesOptions": {
+                "onoff.auto_ignition": {
+                    "title": {
+                        "en": "Auto Ignition",
+                        "nl": "Auto Ignition",
+                        "ru": "Автозапуск"
+                    }
+                },
+                "locked.guard_state": {
+                    "title": {
+                        "en": "Guard State",
+                        "nl": "Guard State",
+                        "ru": "Охрана"
+                    }
+                },
+                "onoff.siren": {
+                    "title": {
+                        "en": "Siren",
+                        "nl": "Siren",
+                        "ru": "Сирена"
+                    }
+                },
+                "onoff.engine_block": {
+                    "title": {
+                        "en": "Engine Block",
+                        "nl": "Engine Block",
+                        "ru": "Блокировка"
+                    }
+                },
+                "alarm_motion.ignition_state": {
+                    "title": {
+                        "en": "Ignition State",
+                        "nl": "Ignition State",
+                        "ru": "Зажигание"
+                    }
+                },
+                "alarm_motion.engine_state": {
+                    "title": {
+                        "en": "Engine State",
+                        "nl": "Engine State",
+                        "ru": "Двигатель"
+                    }
+                },
+                "alarm_motion.shock": {
+                    "title": {
+                        "en": "Shock",
+                        "nl": "Shock",
+                        "ru": "Тревога"
+                    }
+                }
+            },
+            "mobile": {
+                "components": [
+                    {
+                        "id": "toggle",
+                        "capabilities": [ "onoff.auto_ignition" ],
+                        "options": {
+                            "showTitle": true
+                        }
+                    },
+                    {
+                        "id": "toggle",
+                        "capabilities": [ "locked.guard_state" ],
+                        "options": {
+                            "showTitle": true
+                        }
+                    },
+                    {
+                        "id": "sensor",
+                        "capabilities": [ "alarm_motion.shock", "alarm_motion.engine_state", "alarm_motion.ignition_state" ],
+                        "options": {
+                            "showTitle": true
+                        }
+                    }
+                ]
+            },
             "pair": [
                 {
                     "id": "start"

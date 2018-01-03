@@ -2,6 +2,7 @@
 <html>
   <head>
     <script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
   </head>
   <body>
 
@@ -24,11 +25,6 @@
           <input class="form-input" id="settings-auth-pass" data-i18n-placeholder="" type="password" value=""/>
         </div>
 
-        <div class="field row">
-          <label class="form-label" for="settings-auth-email" data-i18n="settings.auth.email"></label>
-          <input class="form-input" id="settings-auth-email" data-i18n-placeholder="" type="email" value=""/>
-        </div>
-
         <button id="settings-auth-authenticate-button" data-i18n="settings.auth.authenticate"></button>
       </div>
 
@@ -38,7 +34,7 @@
     </fieldset>
 
     <script type="text/javascript">
-      function onHomeyReady() {
+      function onHomeyReady(Homey) {
         Homey.get('auth', (err, data) => {
           if (err || !data) {
             $('#settings-auth').show();
@@ -49,37 +45,36 @@
           }
           Homey.ready();
         })
+
+        $('#settings-auth-authenticate-button').on('click', () => {
+          const data = {
+            username: $("#settings-auth-user").val(),
+            password: $("#settings-auth-pass").val(),
+          };
+          if (!data.username || !data.password) {
+            return;
+          }
+          $('#settings-auth-authenticate-button').append(
+            '<span id="icon-auth" class="fa fa-cog fa-spin" style="margin-left:5px"></span>'
+          );
+          Homey.set('auth', data, () => {
+            $('#icon-auth').remove();
+            $('#settings-auth').hide();
+            $('#settings-auth-revoke').show();
+          });
+        });
+
+        $('#settings-auth-revoke-button').on('click', () => {
+          $('#settings-auth-revoke-button').append(
+            '<span id="icon-revoke" class="fa fa-cog fa-spin" style="margin-left:5px"></span>'
+          );
+          Homey.unset('auth', () => {
+            $('#icon-revoke').remove();
+            $('#settings-auth').show();
+            $('#settings-auth-revoke').hide();
+          });
+        });
       }
-
-      $('#settings-auth-authenticate-button').on('click', () => {
-        const data = {
-          username: $("#settings-auth-user").val(),
-          password: $("#settings-auth-pass").val(),
-          email: $("#settings-auth-email").val(),
-        };
-        if (!data.username || !data.password || !data.email) {
-          return;
-        }
-        $('#settings-auth-authenticate-button').append(
-          '<span id="icon-auth" class="fa fa-cog fa-spin" style="margin-left:5px"></span>'
-        );
-        Homey.set('auth', data, () => {
-          $('#icon-auth').remove();
-          $('#settings-auth').hide();
-          $('#settings-auth-revoke').show();
-        });
-      });
-
-      $('#settings-auth-revoke-button').on('click', () => {
-        $('#settings-auth-revoke-button').append(
-          '<span id="icon-revoke" class="fa fa-cog fa-spin" style="margin-left:5px"></span>'
-        );
-        Homey.unset('auth', () => {
-          $('#icon-revoke').remove();
-          $('#settings-auth').show();
-          $('#settings-auth-revoke').hide();
-        });
-      });
     </script>
   </body>
 </html>

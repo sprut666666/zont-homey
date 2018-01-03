@@ -1,0 +1,27 @@
+{
+  "name": "zont-homey",
+  "version": "1.0.0",
+  "description": "Connect your Zont products with Homey.",
+  "main": "app.js",
+  "requires": true,
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sprut666666/zont-homey.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sprut666666/zont-homey/issues"
+  },
+  "homepage": "https://github.com/sprut666666/zont-homey#readme",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "homey-log": "^1.0.5"
+  }
+}

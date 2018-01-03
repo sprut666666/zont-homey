@@ -1,15 +1,16 @@
 {
     "pair": {
-        "authorization": "Authenticeer met Ring",
-        "authorization_explanation": "Ga naar instellingen om Homey toegang tot je Ring apparaten te geven."
+        "authorization": "Authenticeer met Zont",
+        "authorization_explanation": "Ga naar instellingen om Homey toegang tot je Zont apparaten te geven.",
+        "no_devices_found": "No devices found."
     },
     "settings": {
-        "title": "Ring Instellingen",
-        "intro": "Voordat Homey Ring producten kan toevoegen moet er autorisatie gegeven worden.",
+        "title": "Zont Instellingen",
+        "intro": "Voordat Homey Zont producten kan toevoegen moet er autorisatie gegeven worden.",
         "auth": {
-            "header": "Ring Autorisatie Gegevens",
-            "user": "Email",
-            "pass": "Wachtwoord",
+            "header": "Zont Autorisatie Gegevens",
+            "username": "Email",
+            "password": "Wachtwoord",
             "authenticate": "Autoriseer",
             "revoke": "Verwijder autorisatie"
         }
