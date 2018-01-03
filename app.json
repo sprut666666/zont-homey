@@ -40,7 +40,7 @@
                 "large": "./drivers/car_alarm/assets/images/large.png",
                 "small": "./drivers/car_alarm/assets/images/small.png"
             },
-            "class": "sensor",
+            "class": "car_alarm",
             "capabilities": [
                 "onoff.auto_ignition",
                 "locked.guard_state",
