@@ -1,6 +1,6 @@
 const Homey = require('homey')
 
-const DEVICE_TYPES = ['ZTC-720']
+const DEVICE_TYPES = ['ZTC-700M', 'ZTC-710', 'ZTC-720']
 
 class CarAlarmDriver extends Homey.Driver {
   /**
