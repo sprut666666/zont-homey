@@ -43,6 +43,23 @@ class CarAlarmDevice extends Homey.Device {
     this.updateCapabilityValue('alarm_motion.ignition_state', deviceIO['ignition-state'])
     this.updateCapabilityValue('alarm_motion.engine_state', deviceIO['engine-state'])
     this.updateCapabilityValue('alarm_motion.shock', deviceIO['shock'])
+    // Contacts
+    this.updateCapabilityValue('alarm_contact.hood', deviceIO['hood'])
+    this.updateCapabilityValue('alarm_contact.trunk', deviceIO['trunk'])
+    this.updateCapabilityValue('alarm_contact.doors', deviceIO['doors'])
+    this.updateCapabilityValue('alarm_contact.door1', deviceIO['door-1'])
+    this.updateCapabilityValue('alarm_contact.door2', deviceIO['door-2'])
+    this.updateCapabilityValue('alarm_contact.door3', deviceIO['door-3'])
+    this.updateCapabilityValue('alarm_contact.door4', deviceIO['door-4'])
+    // Temperature
+    const tempValues = deviceIO['temperature']
+    const availableTemp = this.device['temperature_conf']['assignments']
+    availableTemp.forEach((type, index) => {
+      const currentValue = tempValues[index]
+      if (currentValue.state === 'ok') {
+        this.updateCapabilityValue(`measure_temperature.${type}`, currentValue.value)
+      }
+    })
     // Online status
     if (!deviceIO['online']) {
       this.setAvailable()

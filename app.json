@@ -42,27 +42,38 @@
             },
             "class": "car_alarm",
             "capabilities": [
-                "onoff.auto_ignition",
                 "locked.guard_state",
+                "onoff.auto_ignition",
                 "onoff.siren",
                 "onoff.engine_block",
                 "alarm_motion.ignition_state",
                 "alarm_motion.engine_state",
-                "alarm_motion.shock"
+                "alarm_motion.shock",
+                "alarm_contact.hood",
+                "alarm_contact.trunk",
+                "alarm_contact.doors",
+                "alarm_contact.door1",
+                "alarm_contact.door2",
+                "alarm_contact.door3",
+                "alarm_contact.door4",
+                "measure_temperature.engine",
+                "measure_temperature.cabin",
+                "measure_temperature.outside",
+                "measure_temperature.none"
             ],
             "capabilitiesOptions": {
-                "onoff.auto_ignition": {
-                    "title": {
-                        "en": "Auto Ignition",
-                        "nl": "Auto Ignition",
-                        "ru": "Автозапуск"
-                    }
-                },
                 "locked.guard_state": {
                     "title": {
-                        "en": "Guard State",
-                        "nl": "Guard State",
+                        "en": "Guard state",
+                        "nl": "Guard state",
                         "ru": "Охрана"
+                    }
+                },
+                "onoff.auto_ignition": {
+                    "title": {
+                        "en": "Auto ignition",
+                        "nl": "Auto ignition",
+                        "ru": "Автозапуск"
                     }
                 },
                 "onoff.siren": {
@@ -74,22 +85,22 @@
                 },
                 "onoff.engine_block": {
                     "title": {
-                        "en": "Engine Block",
-                        "nl": "Engine Block",
+                        "en": "Engine block",
+                        "nl": "Engine block",
                         "ru": "Блокировка"
                     }
                 },
                 "alarm_motion.ignition_state": {
                     "title": {
-                        "en": "Ignition State",
-                        "nl": "Ignition State",
+                        "en": "Ignition state",
+                        "nl": "Ignition state",
                         "ru": "Зажигание"
                     }
                 },
                 "alarm_motion.engine_state": {
                     "title": {
-                        "en": "Engine State",
-                        "nl": "Engine State",
+                        "en": "Engine state",
+                        "nl": "Engine state",
                         "ru": "Двигатель"
                     }
                 },
@@ -98,6 +109,83 @@
                         "en": "Shock",
                         "nl": "Shock",
                         "ru": "Тревога"
+                    }
+                },
+                "alarm_contact.hood": {
+                    "title": {
+                        "en": "Hood",
+                        "nl": "Hood",
+                        "ru": "Капот"
+                    }
+                },
+                "alarm_contact.trunk": {
+                    "title": {
+                        "en": "Trunk",
+                        "nl": "Trunk",
+                        "ru": "Багажник"
+                    }
+                },
+                "alarm_contact.doors": {
+                    "title": {
+                        "en": "Doors",
+                        "nl": "Doors",
+                        "ru": "Двери"
+                    }
+                },
+                "alarm_contact.door1": {
+                    "title": {
+                        "en": "Door 1",
+                        "nl": "Door 1",
+                        "ru": "1 дверь"
+                    }
+                },
+                "alarm_contact.door2": {
+                    "title": {
+                        "en": "Door 2",
+                        "nl": "Door 2",
+                        "ru": "2 дверь"
+                    }
+                },
+                "alarm_contact.door3": {
+                    "title": {
+                        "en": "Door 3",
+                        "nl": "Door 3",
+                        "ru": "3 дверь"
+                    }
+                },
+                "alarm_contact.door4": {
+                    "title": {
+                        "en": "Door 4",
+                        "nl": "Door 4",
+                        "ru": "4 дверь"
+                    }
+                },
+                "measure_temperature.engine": {
+                    "title": {
+                        "en": "Engine temperature",
+                        "nl": "Engine temperature",
+                        "ru": "Температура двигателя"
+                    }
+                },
+                "measure_temperature.cabin": {
+                    "title": {
+                        "en": "Cabin temperature",
+                        "nl": "Cabin temperature",
+                        "ru": "Температура салона"
+                    }
+                },
+                "measure_temperature.outside": {
+                    "title": {
+                        "en": "Outside temperature",
+                        "nl": "Outside temperature",
+                        "ru": "Температура снаружи"
+                    }
+                },
+                "measure_temperature.none": {
+                    "title": {
+                        "en": "Temperature (unspecified)",
+                        "nl": "Temperature (unspecified)",
+                        "ru": "Температура (назначение не задано)"
                     }
                 }
             },
