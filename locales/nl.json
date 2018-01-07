@@ -12,7 +12,8 @@
             "username": "Email",
             "password": "Wachtwoord",
             "authenticate": "Autoriseer",
-            "revoke": "Verwijder autorisatie"
+            "revoke": "Verwijder autorisatie",
+            "error": "Ongeldige inloggegevens"
         }
     }
 }

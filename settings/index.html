@@ -13,7 +13,7 @@
       <legend data-i18n="settings.auth.header"></legend>
 
       <div id="settings-auth">
-        <p id="error" style='color: red;'></p>
+        <p data-i18n="settings.auth.error" id="settings-error" style="color:red;display:none;"></p>
 
         <div class="field row">
           <label class="form-label" for="settings-auth-user" data-i18n="settings.auth.username"></label>
@@ -35,45 +35,63 @@
 
     <script type="text/javascript">
       function onHomeyReady(Homey) {
+        function checkAuth(data, callback) {
+          Homey.api('POST', '/checkAuth', data, callback)
+        }
+
         Homey.get('auth', (err, data) => {
           if (err || !data) {
-            $('#settings-auth').show();
-            $('#settings-auth-revoke').hide();
+            $('#settings-auth').show()
+            $('#settings-auth-revoke').hide()
           } else {
-            $('#settings-auth').hide();
-            $('#settings-auth-revoke').show();
+            $('#settings-auth').hide()
+            $('#settings-auth-revoke').show()
+            checkAuth(data, (err) => {
+              if (err) {
+                $('#settings-auth-revoke').show()
+              }
+            })
           }
-          Homey.ready();
+          Homey.ready()
         })
 
         $('#settings-auth-authenticate-button').on('click', () => {
+          $('#settings-error').hide()
           const data = {
             username: $("#settings-auth-user").val(),
             password: $("#settings-auth-pass").val(),
-          };
+          }
           if (!data.username || !data.password) {
-            return;
+            return
           }
           $('#settings-auth-authenticate-button').append(
             '<span id="icon-auth" class="fa fa-cog fa-spin" style="margin-left:5px"></span>'
-          );
-          Homey.set('auth', data, () => {
-            $('#icon-auth').remove();
-            $('#settings-auth').hide();
-            $('#settings-auth-revoke').show();
-          });
-        });
+          )
+          checkAuth(data, (err) => {
+            if (err) {
+              $('#icon-auth').remove()
+              $('#settings-error').show()
+              return
+            }
+            Homey.set('auth', data, () => {
+              $('#icon-auth').remove()
+              $('#settings-auth').hide()
+              $('#settings-auth-revoke').show()
+            })
+          })
+        })
 
         $('#settings-auth-revoke-button').on('click', () => {
+          $('#settings-error').hide()
           $('#settings-auth-revoke-button').append(
             '<span id="icon-revoke" class="fa fa-cog fa-spin" style="margin-left:5px"></span>'
-          );
+          )
           Homey.unset('auth', () => {
-            $('#icon-revoke').remove();
-            $('#settings-auth').show();
-            $('#settings-auth-revoke').hide();
-          });
-        });
+            $('#icon-revoke').remove()
+            $('#settings-auth').show()
+            $('#settings-auth-revoke').hide()
+          })
+        })
       }
     </script>
   </body>

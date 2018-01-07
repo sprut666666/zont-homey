@@ -85,7 +85,6 @@ class CarAlarmDevice extends Homey.Device {
   }
 
   updateCapabilityValue(name, value) {
-    this.log(name, 'updated value:', value)
     if (this.getCapabilityValue(name) != value) {
       this.setCapabilityValue(name, value)
     }
