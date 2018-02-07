@@ -27,24 +27,24 @@ class CarAlarmDevice extends Homey.Device {
   }
 
   registerCapabilities() {
-    this.registerToggle('onoff.auto_ignition', 'auto-ignition', 'auto-ignition', 'enabled', 'disabled')
-    this.registerToggle('locked.guard_state', 'guard-state', 'string', 'enabled', 'disabled')
-    this.registerToggle('onoff.siren', 'siren', 'bool', true, false)
-    this.registerToggle('onoff.engine_block', 'engine-block', 'bool', true, false)
+    this.registerToggle('onoff', 'auto-ignition', 'auto-ignition', 'enabled', 'disabled')
+    this.registerToggle('locked', 'guard-state', 'string', 'enabled', 'disabled')
+    this.registerToggle('speaker_playing', 'siren', 'bool', true, false)
+    //this.registerToggle('onoff.engine_block', 'engine-block', 'bool', true, false)
   }
 
   handleStateChange(deviceIO) {
     // Toggles
-    this.updateCapabilityValue('onoff.auto_ignition', deviceIO['auto-ignition']['state'] !== 'disabled')
-    this.updateCapabilityValue('locked.guard_state', deviceIO['guard-state'] === 'enabled')
-    this.updateCapabilityValue('onoff.siren', deviceIO['siren'])
-    this.updateCapabilityValue('onoff.engine_block', deviceIO['engine-block'])
+    this.updateCapabilityValue('onoff', deviceIO['auto-ignition']['state'] !== 'disabled')
+    this.updateCapabilityValue('locked', deviceIO['guard-state'] === 'enabled')
+    this.updateCapabilityValue('speaker_playing', deviceIO['siren'])
+    //this.updateCapabilityValue('onoff.engine_block', deviceIO['engine-block'])
     // Motions
-    this.updateCapabilityValue('alarm_motion.ignition_state', deviceIO['ignition-state'])
-    this.updateCapabilityValue('alarm_motion.engine_state', deviceIO['engine-state'])
-    this.updateCapabilityValue('alarm_motion.shock', deviceIO['shock'])
+    this.updateCapabilityValue('alarm_contact', deviceIO['ignition-state'])  
+    this.updateCapabilityValue('alarm_motion', deviceIO['shock'])
     // Contacts
-    this.updateCapabilityValue('alarm_contact.hood', deviceIO['hood'])
+    //deviceIO['engine-state']
+    /*this.updateCapabilityValue('alarm_contact.hood', deviceIO['hood'])
     this.updateCapabilityValue('alarm_contact.trunk', deviceIO['trunk'])
     this.updateCapabilityValue('alarm_contact.doors', deviceIO['doors'])
     this.updateCapabilityValue('alarm_contact.door1', deviceIO['door-1'])
@@ -59,11 +59,13 @@ class CarAlarmDevice extends Homey.Device {
       if (currentValue.state === 'ok') {
         this.updateCapabilityValue(`measure_temperature.${type}`, currentValue.value)
       }
-    })
+    })*/
     // Online status
     if (!deviceIO['online']) {
+      this.updateCapabilityValue('alarm_tamper', false);
       this.setAvailable()
     } else {
+      this.updateCapabilityValue('alarm_tamper', true);
       this.setUnavailable()
     }
   }
@@ -94,7 +96,7 @@ class CarAlarmDevice extends Homey.Device {
     let deviceId = this.data.id
     this.registerCapabilityListener(name, async (value) => {
       const newVelue = value ? valueOn : valueOff
-      this.log(`${deviceId} ${portname}:`, value, newVelue)
+      //this.log(`${deviceId} ${portname}:`, value, newVelue)
       await Homey.app.zont.updateDeviceProperty(deviceId, portname, type, newVelue)
     })
   }
