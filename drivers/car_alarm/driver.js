@@ -2,7 +2,22 @@ const Homey = require('homey')
 
 const DEVICE_TYPES = ['ZTC-700M', 'ZTC-710', 'ZTC-720']
 
+const initToggleFlowTriggers = (on, off) => ({
+  on: new Homey.FlowCardTriggerDevice(on).register(),
+  off: new Homey.FlowCardTriggerDevice(off).register(),
+})
+
 class CarAlarmDriver extends Homey.Driver {
+  onInit() {
+    this.triggers = {
+      siren: initToggleFlowTriggers('siren_on', 'siren_off'),
+      guardState: initToggleFlowTriggers('guard_state_on', 'guard_state_off'),
+      autoIgnition: initToggleFlowTriggers('auto_ignition_on', 'auto_ignition_off'),
+      ignitionState: initToggleFlowTriggers('ignition_state_on', 'ignition_state_off'),
+      shock: initToggleFlowTriggers('shock_on', 'shock_off'),
+    }
+  }
+
   /**
    * Called when user is presented the list_devices template,
    * this function fetches relevant data from devices and passes
