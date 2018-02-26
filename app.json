@@ -82,7 +82,7 @@
                   "title": {
                       "en": "Engine state",
                       "nl": "Engine state",
-                      "ru": "Нет связи"
+                      "ru": "Двигатель"
                   }
               },
               "alarm_motion": {
@@ -365,6 +365,86 @@
         "id": "is_shock_active",
         "title": {
           "en": "Shock alarm is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "auto_ignition_on",
+        "title": {
+          "en": "Turn auto ignition on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "auto_ignition_off",
+        "title": {
+          "en": "Turn auto ignition off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "guard_state_on",
+        "title": {
+          "en": "Turn guard state on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "guard_state_off",
+        "title": {
+          "en": "Turn guard state off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "siren_on",
+        "title": {
+          "en": "Turn siren on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "siren_off",
+        "title": {
+          "en": "Turn siren off"
         },
         "args": [
           {

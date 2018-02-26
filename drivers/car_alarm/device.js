@@ -21,6 +21,7 @@ class CarAlarmDevice extends Homey.Device {
       this.registerCapabilities()
       this.registerStateChangeListener()
       this.registerConditions()
+      this.registerActions()
       this.setAvailable()
     } else {
       this.unregisterStateChangeListener()
@@ -45,40 +46,47 @@ class CarAlarmDevice extends Homey.Device {
     this.registerCondition('alarm_motion', conditions.shock)
   }
 
+  registerActions() {
+    const { actions } = this.driver
+    this.registerToggleAction('onoff', 'auto-ignition', 'auto-ignition', 'enabled', 'disabled', actions.autoIgnition)
+    this.registerToggleAction('locked', 'guard-state', 'string', 'enabled', 'disabled', actions.guardState)
+    this.registerToggleAction('speaker_playing', 'siren', 'bool', true, false, actions.siren)
+  }
+
   handleStateChange(deviceIO) {
     const { triggers } = this.driver
     // Toggles
     this.updateCapabilityValue('onoff', deviceIO['auto-ignition']['state'] !== 'disabled', triggers.autoIgnition)
     this.updateCapabilityValue('locked', deviceIO['guard-state'] === 'enabled', triggers.guardState)
     this.updateCapabilityValue('speaker_playing', deviceIO['siren'], triggers.siren)
-    //this.updateCapabilityValue('onoff.engine_block', deviceIO['engine-block'])
+    // this.updateCapabilityValue('onoff.engine_block', deviceIO['engine-block'])
     // Motions
     this.updateCapabilityValue('alarm_contact', deviceIO['ignition-state'], triggers.ignitionState)  
     this.updateCapabilityValue('alarm_motion', deviceIO['shock'], triggers.shock)
     // Contacts
-    //deviceIO['engine-state']
-    /*this.updateCapabilityValue('alarm_contact.hood', deviceIO['hood'])
-    this.updateCapabilityValue('alarm_contact.trunk', deviceIO['trunk'])
-    this.updateCapabilityValue('alarm_contact.doors', deviceIO['doors'])
-    this.updateCapabilityValue('alarm_contact.door1', deviceIO['door-1'])
-    this.updateCapabilityValue('alarm_contact.door2', deviceIO['door-2'])
-    this.updateCapabilityValue('alarm_contact.door3', deviceIO['door-3'])
-    this.updateCapabilityValue('alarm_contact.door4', deviceIO['door-4'])
-    // Temperature
-    const tempValues = deviceIO['temperature']
-    const availableTemp = this.device['temperature_conf']['assignments']
-    availableTemp.forEach((type, index) => {
-      const currentValue = tempValues[index]
-      if (currentValue.state === 'ok') {
-        this.updateCapabilityValue(`measure_temperature.${type}`, currentValue.value)
-      }
-    })*/
+    // deviceIO['engine-state']
+    // this.updateCapabilityValue('alarm_contact.hood', deviceIO['hood'])
+    // this.updateCapabilityValue('alarm_contact.trunk', deviceIO['trunk'])
+    // this.updateCapabilityValue('alarm_contact.doors', deviceIO['doors'])
+    // this.updateCapabilityValue('alarm_contact.door1', deviceIO['door-1'])
+    // this.updateCapabilityValue('alarm_contact.door2', deviceIO['door-2'])
+    // this.updateCapabilityValue('alarm_contact.door3', deviceIO['door-3'])
+    // this.updateCapabilityValue('alarm_contact.door4', deviceIO['door-4'])
+    // // Temperature
+    // const tempValues = deviceIO['temperature']
+    // const availableTemp = this.device['temperature_conf']['assignments']
+    // availableTemp.forEach((type, index) => {
+    //   const currentValue = tempValues[index]
+    //   if (currentValue.state === 'ok') {
+    //     this.updateCapabilityValue(`measure_temperature.${type}`, currentValue.value)
+    //   }
+    // })
     // Online status
     if (!deviceIO['online']) {
-      this.updateCapabilityValue('alarm_tamper', false);
+      // this.updateCapabilityValue('alarm_tamper', false);
       this.setAvailable()
     } else {
-      this.updateCapabilityValue('alarm_tamper', true);
+      // this.updateCapabilityValue('alarm_tamper', true);
       this.setUnavailable()
     }
   }
@@ -120,6 +128,20 @@ class CarAlarmDevice extends Homey.Device {
     condition.registerRunListener((args, state) => (
       Promise.resolve(this.getCapabilityValue(name))
     ))
+  }
+
+  registerToggleAction(name, portname, type, valueOn = true, valueOff = false, action) {
+    let deviceId = this.data.id
+    action.on.registerRunListener(async (args, state) => {
+      this.log('action:', name, valueOn)
+      await Homey.app.zont.updateDeviceProperty(deviceId, portname, type, valueOn)
+      return true
+    })
+    action.off.registerRunListener(async (args, state) => {
+      this.log('action:', name, valueOff)
+      await Homey.app.zont.updateDeviceProperty(deviceId, portname, type, valueOff)
+      return true
+    })
   }
 
   triggerFlow(trigger, name, value) {
