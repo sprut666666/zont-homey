@@ -7,6 +7,10 @@ const initToggleFlowTriggers = (on, off) => ({
   off: new Homey.FlowCardTriggerDevice(off).register(),
 })
 
+const initCondition = (name) => (
+  new Homey.FlowCardCondition('is_siren_active').register()
+)
+
 class CarAlarmDriver extends Homey.Driver {
   onInit() {
     this.triggers = {
@@ -15,6 +19,13 @@ class CarAlarmDriver extends Homey.Driver {
       autoIgnition: initToggleFlowTriggers('auto_ignition_on', 'auto_ignition_off'),
       ignitionState: initToggleFlowTriggers('ignition_state_on', 'ignition_state_off'),
       shock: initToggleFlowTriggers('shock_on', 'shock_off'),
+    }
+    this.conditions = {
+      siren: initCondition('is_siren_active'),
+      guardState: initCondition('is_guard_state_active'),
+      autoIgnition: initCondition('is_auto_ignition_active'),
+      ignitionState: initCondition('is_ignition_state_active'),
+      shock: initCondition('is_shock_active'),
     }
   }
 

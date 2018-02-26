@@ -307,6 +307,73 @@
           }
         ]
       }
+    ],
+    "conditions": [
+      {
+        "id": "is_siren_active",
+        "title": {
+          "en": "Siren alarm is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "is_guard_state_active",
+        "title": {
+          "en": "Guard state is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "is_auto_ignition_active",
+        "title": {
+          "en": "Auto ignition is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "is_ignition_state_active",
+        "title": {
+          "en": "Ignition state is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "is_shock_active",
+        "title": {
+          "en": "Shock alarm is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      }
     ]
   }
 }

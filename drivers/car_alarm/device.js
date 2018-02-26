@@ -20,6 +20,7 @@ class CarAlarmDevice extends Homey.Device {
       this.device = await Homey.app.zont.loadDevice(this.data.id)
       this.registerCapabilities()
       this.registerStateChangeListener()
+      this.registerConditions()
       this.setAvailable()
     } else {
       this.unregisterStateChangeListener()
@@ -33,6 +34,15 @@ class CarAlarmDevice extends Homey.Device {
     this.registerToggle('locked', 'guard-state', 'string', 'enabled', 'disabled', triggers.guardState)
     this.registerToggle('speaker_playing', 'siren', 'bool', true, false, triggers.siren)
     //this.registerToggle('onoff.engine_block', 'engine-block', 'bool', true, false)
+  }
+
+  registerConditions() {
+    const { conditions } = this.driver
+    this.registerCondition('onoff', conditions.autoIgnition)
+    this.registerCondition('locked', conditions.guardState)
+    this.registerCondition('speaker_playing', conditions.siren)
+    this.registerCondition('alarm_contact', conditions.ignitionState)  
+    this.registerCondition('alarm_motion', conditions.shock)
   }
 
   handleStateChange(deviceIO) {
@@ -104,6 +114,12 @@ class CarAlarmDevice extends Homey.Device {
       await Homey.app.zont.updateDeviceProperty(deviceId, portname, type, newValue)
       this.triggerFlow(trigger, name, value)
     })
+  }
+
+  registerCondition(name, condition) {
+    condition.registerRunListener((args, state) => (
+      Promise.resolve(this.getCapabilityValue(name))
+    ))
   }
 
   triggerFlow(trigger, name, value) {
