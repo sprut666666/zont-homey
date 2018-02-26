@@ -282,6 +282,32 @@
         ]
       },
       {
+        "id": "engine_state_on",
+        "title": {
+          "en": "Engine state yes"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "engine_state_off",
+        "title": {
+          "en": "Engine state no"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
         "id": "shock_on",
         "title": {
           "en": "Shock yes"
@@ -352,6 +378,19 @@
         "id": "is_ignition_state_active",
         "title": {
           "en": "Ignition state is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "is_engine_state_active",
+        "title": {
+          "en": "Engine state is !{{on|off}}"
         },
         "args": [
           {

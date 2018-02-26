@@ -23,6 +23,7 @@ class CarAlarmDriver extends Homey.Driver {
       guardState: initToggleFlowTriggers('guard_state_on', 'guard_state_off'),
       autoIgnition: initToggleFlowTriggers('auto_ignition_on', 'auto_ignition_off'),
       ignitionState: initToggleFlowTriggers('ignition_state_on', 'ignition_state_off'),
+      engineState: initToggleFlowTriggers('engine_state_on', 'engine_state_off'),
       shock: initToggleFlowTriggers('shock_on', 'shock_off'),
     }
     this.conditions = {
@@ -30,6 +31,7 @@ class CarAlarmDriver extends Homey.Driver {
       guardState: initFlowCondition('is_guard_state_active'),
       autoIgnition: initFlowCondition('is_auto_ignition_active'),
       ignitionState: initFlowCondition('is_ignition_state_active'),
+      engineState: initFlowCondition('is_engine_state_active'),
       shock: initFlowCondition('is_shock_active'),
     }
     this.actions = {

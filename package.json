@@ -1,5 +1,5 @@
 {
-  "name": "zont-homey",
+  "name": "com.zont",
   "version": "1.0.0",
   "description": "Connect your Zont products with Homey.",
   "main": "app.js",

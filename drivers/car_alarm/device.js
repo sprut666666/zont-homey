@@ -34,7 +34,7 @@ class CarAlarmDevice extends Homey.Device {
     this.registerToggle('onoff', 'auto-ignition', 'auto-ignition', 'enabled', 'disabled', triggers.autoIgnition)
     this.registerToggle('locked', 'guard-state', 'string', 'enabled', 'disabled', triggers.guardState)
     this.registerToggle('speaker_playing', 'siren', 'bool', true, false, triggers.siren)
-    //this.registerToggle('onoff.engine_block', 'engine-block', 'bool', true, false)
+    // this.registerToggle('onoff.engine_block', 'engine-block', 'bool', true, false)
   }
 
   registerConditions() {
@@ -43,6 +43,7 @@ class CarAlarmDevice extends Homey.Device {
     this.registerCondition('locked', conditions.guardState)
     this.registerCondition('speaker_playing', conditions.siren)
     this.registerCondition('alarm_contact', conditions.ignitionState)  
+    this.registerCondition('alarm_tamper', conditions.engineState)
     this.registerCondition('alarm_motion', conditions.shock)
   }
 
@@ -62,9 +63,9 @@ class CarAlarmDevice extends Homey.Device {
     // this.updateCapabilityValue('onoff.engine_block', deviceIO['engine-block'])
     // Motions
     this.updateCapabilityValue('alarm_contact', deviceIO['ignition-state'], triggers.ignitionState)  
+    this.updateCapabilityValue('alarm_tamper', deviceIO['engine-state'], triggers.engineState)
     this.updateCapabilityValue('alarm_motion', deviceIO['shock'], triggers.shock)
     // Contacts
-    // deviceIO['engine-state']
     // this.updateCapabilityValue('alarm_contact.hood', deviceIO['hood'])
     // this.updateCapabilityValue('alarm_contact.trunk', deviceIO['trunk'])
     // this.updateCapabilityValue('alarm_contact.doors', deviceIO['doors'])
