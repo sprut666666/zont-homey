@@ -80,9 +80,9 @@
               },
               "alarm_tamper": {
                   "title": {
-                      "en": "Engine state",
-                      "nl": "Engine state",
-                      "ru": "Двигатель"
+                      "en": "Online",
+                      "nl": "Online",
+                      "ru": "Онлайн"
                   }
               },
               "alarm_motion": {
@@ -139,45 +139,6 @@
   "flow": {
     "triggers": [
       {
-          "id": "doorbell_firmware_changed",
-          "title": {
-              "en": "Firmware changed",
-              "nl": "Firmware is veranderd"
-          },
-          "args": [
-              {
-                  "name": "device",
-                  "type": "device",
-                  "filter": "driver_id=doorbell"
-              }
-          ],
-          "tokens": [
-              {
-                  "name": "old_firmware",
-                  "type": "string",
-                  "title": {
-                      "en": "old version",
-                      "nl": "oude versie"
-                  },
-                  "example": {
-                      "en": "1.0.0",
-                      "nl": "1.0.0"
-                  }
-              }, {
-                  "name": "new_firmware",
-                  "type": "string",
-                  "title": {
-                      "en": "new version",
-                      "nl": "nieuwe versie"
-                  },
-                  "example": {
-                      "en": "2.0.0",
-                      "nl": "2.0.0"
-                  }
-              }
-          ]
-      },
-      {
         "id": "siren_on",
         "title": {
           "en": "Siren on"
@@ -194,6 +155,19 @@
         "id": "siren_off",
         "title": {
           "en": "Siren off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "siren_toggle",
+        "title": {
+          "en": "Siren changed"
         },
         "args": [
           {
@@ -230,6 +204,19 @@
         ]
       },
       {
+        "id": "guard_state_toggle",
+        "title": {
+          "en": "Guard state changed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
         "id": "auto_ignition_on",
         "title": {
           "en": "Auto ignition on"
@@ -246,6 +233,19 @@
         "id": "auto_ignition_off",
         "title": {
           "en": "Auto ignition off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "auto_ignition_toggle",
+        "title": {
+          "en": "Auto ignition changed"
         },
         "args": [
           {
@@ -282,9 +282,9 @@
         ]
       },
       {
-        "id": "engine_state_on",
+        "id": "ignition_state_toggle",
         "title": {
-          "en": "Engine state yes"
+          "en": "Ignition state changed"
         },
         "args": [
           {
@@ -295,9 +295,35 @@
         ]
       },
       {
-        "id": "engine_state_off",
+        "id": "online_on",
         "title": {
-          "en": "Engine state no"
+          "en": "Device is online"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "online_off",
+        "title": {
+          "en": "Device is offline"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "online_toggle",
+        "title": {
+          "en": "Device online status changed"
         },
         "args": [
           {
@@ -324,6 +350,19 @@
         "id": "shock_off",
         "title": {
           "en": "Shock no"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=car_alarm"
+          }
+        ]
+      },
+      {
+        "id": "shock_toggle",
+        "title": {
+          "en": "Shock changed"
         },
         "args": [
           {
@@ -388,9 +427,9 @@
         ]
       },
       {
-        "id": "is_engine_state_active",
+        "id": "is_online_active",
         "title": {
-          "en": "Engine state is !{{on|off}}"
+          "en": "Device is !{{online|offline}}"
         },
         "args": [
           {

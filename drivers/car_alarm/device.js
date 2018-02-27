@@ -43,7 +43,7 @@ class CarAlarmDevice extends Homey.Device {
     this.registerCondition('locked', conditions.guardState)
     this.registerCondition('speaker_playing', conditions.siren)
     this.registerCondition('alarm_contact', conditions.ignitionState)  
-    this.registerCondition('alarm_tamper', conditions.engineState)
+    this.registerCondition('alarm_tamper', conditions.online)
     this.registerCondition('alarm_motion', conditions.shock)
   }
 
@@ -63,7 +63,7 @@ class CarAlarmDevice extends Homey.Device {
     // this.updateCapabilityValue('onoff.engine_block', deviceIO['engine-block'])
     // Motions
     this.updateCapabilityValue('alarm_contact', deviceIO['ignition-state'], triggers.ignitionState)  
-    this.updateCapabilityValue('alarm_tamper', deviceIO['engine-state'], triggers.engineState)
+    // this.updateCapabilityValue('alarm_tamper', deviceIO['engine-state'], triggers.engineState)
     this.updateCapabilityValue('alarm_motion', deviceIO['shock'], triggers.shock)
     // Contacts
     // this.updateCapabilityValue('alarm_contact.hood', deviceIO['hood'])
@@ -84,10 +84,10 @@ class CarAlarmDevice extends Homey.Device {
     // })
     // Online status
     if (!deviceIO['online']) {
-      // this.updateCapabilityValue('alarm_tamper', false);
+      this.updateCapabilityValue('alarm_tamper', true, triggers.online);
       this.setAvailable()
     } else {
-      // this.updateCapabilityValue('alarm_tamper', true);
+      this.updateCapabilityValue('alarm_tamper', false, triggers.online);
       this.setUnavailable()
     }
   }
@@ -157,7 +157,9 @@ class CarAlarmDevice extends Homey.Device {
       case 'locked':
       case 'speaker_playing':
       case 'alarm_contact':
-      case 'alarm_motion': {
+      case 'alarm_motion':
+      case 'alarm_tamper': {
+        trigger.toggle.trigger(this, {}, { value })
         if (value) {
           trigger.on.trigger(this, {}, { value })
         } else {
