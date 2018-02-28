@@ -80,9 +80,9 @@
               },
               "alarm_tamper": {
                   "title": {
-                      "en": "Online",
-                      "nl": "Online",
-                      "ru": "Онлайн"
+                      "en": "No connection",
+                      "nl": "No connection",
+                      "ru": "Нет связи"
                   }
               },
               "alarm_motion": {
